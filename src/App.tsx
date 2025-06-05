@@ -12,7 +12,7 @@ import { useAuth } from './hooks/useAuth';
 const Users = lazy(() => import('./pages/users/Users'));
 const UserForm = lazy(() => import('./pages/users/UserForm'));
 const Clients = lazy(() => import('./pages/clients/Clients'));
-const ClientForm = lazy(() => import('./pages/clients/ClientForm'));
+const ClientForm = lazy(() => import('./pages/ClientForm'));
 const Suppliers = lazy(() => import('./pages/suppliers/Suppliers'));
 const SupplierForm = lazy(() => import('./pages/suppliers/SupplierForm'));
 const Products = lazy(() => import('./pages/products/Products'));
@@ -22,6 +22,8 @@ const AccountPayableForm = lazy(() => import('./pages/accounts/AccountPayableFor
 const AccountsReceivable = lazy(() => import('./pages/accounts/AccountsReceivable'));
 const AccountReceivableForm = lazy(() => import('./pages/accounts/AccountReceivableForm'));
 const NotFound = lazy(() => import('./pages/NotFound'));
+const Suppliers = lazy(() => import('./pages/suppliers/Suppliers')); //
+const SupplierForm = lazy(() => import('./pages/suppliers/SupplierForm')); 
 
 function App() {
   const { isAuthenticated, isLoading } = useAuth();

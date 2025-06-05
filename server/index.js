@@ -1,50 +1,21 @@
+// server/routes/index.js
 import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import helmet from 'helmet';
-import morgan from 'morgan';
+import authRoutes from './authRoutes.js'; //
+import userRoutes from './userRoutes.js'; //
+import clientRoutes from './clientRoutes.js'; // Supondo que você criará este
+import supplierRoutes from './supplierRoutes.js'; // Adicionado recentemente
+import productRoutes from './productRoutes.js'; // Supondo que você criará este
+import accountsPayableRoutes from './accountsPayableRoutes.js'; // Supondo que você criará este
+import accountsReceivableRoutes from './accountsReceivableRoutes.js'; // Supondo que você criará este
 
-import { sequelize } from './config/database.js';
-import routes from './routes/index.js';
+const router = express.Router();
 
-// Load environment variables
-dotenv.config();
+router.use('/auth', authRoutes);
+router.use('/users', userRoutes);
+// router.use('/clients', clientRoutes); // Você teria criado clientRoutes.js similarmente
+router.use('/suppliers', supplierRoutes); // Usa as novas rotas de fornecedores
+// router.use('/products', productRoutes);
+// router.use('/accounts-payable', accountsPayableRoutes);
+// router.use('/accounts-receivable', accountsReceivableRoutes);
 
-// Initialize Express app
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Middleware
-app.use(cors());
-app.use(helmet());
-app.use(morgan('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// API Routes
-app.use('/api', routes);
-
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(err.statusCode || 500).json({
-    message: err.message || 'Internal Server Error',
-  });
-});
-
-// Database synchronization and server start
-async function startServer() {
-  try {
-    await sequelize.sync();
-    console.log('Database synchronized successfully');
-    
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-  } catch (error) {
-    console.error('Failed to start server:', error);
-    process.exit(1);
-  }
-}
-
-startServer();
+export default router;
